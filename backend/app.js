@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 
 const authRoutes = require("./src/routes/auth.routes");
+const animalRoutes = require("./src/routes/animals.routes");
+const listingRoutes = require("./src/routes/listings.routes");
 
 dotenv.config();
 
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/animals", animalRoutes);
+app.use("/api/listings", listingRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Mkulima Market API" });
