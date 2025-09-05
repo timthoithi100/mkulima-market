@@ -1,0 +1,21 @@
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Env
+.env
+.env.local
+
+# Logs
+logs
+*.log
+*.out
+*.err
+
+# Database
+backend/prisma/migrations
+backend/uploads
+
+# Build
+frontend/build
