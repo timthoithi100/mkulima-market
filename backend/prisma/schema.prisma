@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  firstName    String
+  lastName     String
+  phone        String        @unique
+  email        String        @unique
+  password     String
+  role         String        @default("buyer")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  listings     Listing[]
+  sentMessages Message[]     @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  reviews      Review[]
+  transactions Transaction[]
+}
+
+model Animal {
+  id        String   @id @default(uuid())
+  type      String
+  breed     String
+  ageMonths Int
+  weightKg  Float
+  gender    String
+  purpose   String
+  createdAt DateTime @default(now())
+
+  listing   Listing?
+}
+
+model Listing {
+  id        String   @id @default(uuid())
+  price     Float
+  location  String
+  status    String   @default("active")
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  animalId  String   @unique
+  animal    Animal   @relation(fields: [animalId], references: [id])
+}
+
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  senderId  String
+  receiverId String
+
+  sender    User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver  User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  amount      Float
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
