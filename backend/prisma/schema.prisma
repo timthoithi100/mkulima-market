@@ -23,6 +23,7 @@ model User {
   receivedMessages Message[] @relation("ReceivedMessages")
   reviews      Review[]
   transactions Transaction[]
+  isEmailVerified Boolean    @default(false)
 }
 
 model Animal {
@@ -84,4 +85,14 @@ model Review {
 
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model VerificationToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  type      String
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
 }
