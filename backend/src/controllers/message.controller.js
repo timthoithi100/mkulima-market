@@ -1,4 +1,5 @@
 const prisma = require("../../config/database");
+const { createNotification } = require("./notification.controller");
 
 async function sendMessage(req, res) {
   try {
@@ -20,8 +21,9 @@ async function sendMessage(req, res) {
       }
     });
 
-    // emit to Socket.io
     req.io.to(receiverId).emit("new_message", message);
+
+    await createNotification(receiverId, "You have a new message", "message", req.io);
 
     return res.status(201).json(message);
   } catch (err) {
