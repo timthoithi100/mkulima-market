@@ -57,8 +57,6 @@ MPESA_SHORTCODE=<paybill-or-till-number>
 MPESA_CALLBACK_URL=https://api.mkulima-market.com/api/payments/callback
 ```
 
-⚠️ Do not commit this file to GitHub. Keep it private.
-
 ---
 
 ## 3. Backend Deployment
