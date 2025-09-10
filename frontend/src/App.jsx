@@ -2,6 +2,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Listings from "./pages/Listings";
+import ListingForm from "./pages/ListingForm";
+import MyListings from "./pages/MyListings";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -15,14 +19,22 @@ function App() {
       </nav>
       <div className="container mt-4">
         <Routes>
-          <Route path="/" element={<h1>Welcome to Mkulima Market</h1>} />
+          <Route path="/" element={<Listings />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-listing" element={<ListingForm />} />
+          <Route path="/my-listings" element={<MyListings />} />
+          <Route path="/chat/:id" element={<ChatWrapper />} />
         </Routes>
       </div>
     </Router>
   );
+}
+
+function ChatWrapper() {
+  const { id } = window.location.pathname.split("/").slice(-1)[0];
+  return <Chat receiverId={id} />;
 }
 
 export default App;
