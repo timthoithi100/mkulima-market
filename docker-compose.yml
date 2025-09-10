@@ -1,62 +1,40 @@
 version: "3.9"
 
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: mkulima-backend
-    restart: always
-    env_file: ./backend/.env.production
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-      - redis
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: mkulima-frontend
-    restart: always
-    ports:
-      - "3000:80"
-
-  db:
+  postgres:
     image: postgres:15
-    container_name: mkulima-db
     restart: always
     environment:
       POSTGRES_USER: mkulima
-      POSTGRES_PASSWORD: mkulima123
+      POSTGRES_PASSWORD: mkulima_pass
       POSTGRES_DB: mkulima_market
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
-  redis:
-    image: redis:7
-    container_name: mkulima-redis
+  backend:
+    build: ./backend
     restart: always
+    environment:
+      DATABASE_URL: postgres://mkulima:mkulima_pass@postgres:5432/mkulima_market
+      JWT_SECRET: supersecretkey
+      MPESA_CONSUMER_KEY: test_key
+      MPESA_CONSUMER_SECRET: test_secret
+      MPESA_SHORTCODE: 123456
+      MPESA_PASSKEY: test_passkey
+    depends_on:
+      - postgres
     ports:
-      - "6379:6379"
+      - "5000:5000"
 
-  proxy:
-    image: nginx:stable
-    container_name: mkulima-proxy
+  frontend:
+    build: ./frontend
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - certs:/etc/letsencrypt
     depends_on:
       - backend
-      - frontend
+    ports:
+      - "3000:80"
 
 volumes:
-  db_data:
-  certs:
+  postgres_data:
