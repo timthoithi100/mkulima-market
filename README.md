@@ -5,37 +5,6 @@ It supports user authentication, animal listings, real-time messaging, M-Pesa pa
 
 ---
 
-## 🚀 Quickstart
-
-1. Clone and enter the project
-
-   ```bash
-   git clone https://github.com/timthoithi100/mkulima-market.git
-   cd mkulima-market
-   ```
-
-2. Add your M-Pesa credentials inside `backend/.env`
-
-   ```env
-   DATABASE_URL=postgresql://mkulima:mkulima_pass@postgres:5432/mkulima_market
-   JWT_SECRET=supersecretjwtkey
-   MPESA_CONSUMER_KEY=xxxx
-   MPESA_CONSUMER_SECRET=xxxx
-   MPESA_SHORTCODE=174379
-   MPESA_PASSKEY=xxxx
-   ```
-
-3. Start the app
-
-   ```bash
-   docker compose up -d --build
-   ```
-
-Frontend → [http://localhost:3000](http://localhost:3000)
-Backend API → [http://localhost:5000/api](http://localhost:5000/api)
-
----
-
 ## Features
 
 * **User Authentication** – Farmers and buyers can sign up and log in
@@ -56,7 +25,7 @@ Backend API → [http://localhost:5000/api](http://localhost:5000/api)
 
 ---
 
-## Deployment (Detailed)
+## Deployment
 
 1. **Clone repo**
 
