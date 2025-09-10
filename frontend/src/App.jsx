@@ -6,6 +6,8 @@ import Listings from "./pages/Listings";
 import ListingForm from "./pages/ListingForm";
 import MyListings from "./pages/MyListings";
 import Chat from "./pages/Chat";
+import Checkout from "./pages/Checkout";
+import Transactions from "./pages/Transactions";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/create-listing" element={<ListingForm />} />
           <Route path="/my-listings" element={<MyListings />} />
           <Route path="/chat/:id" element={<ChatWrapper />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/transactions" element={<Transactions />} />
         </Routes>
       </div>
     </Router>
