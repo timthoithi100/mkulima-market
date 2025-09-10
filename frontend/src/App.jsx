@@ -10,6 +10,7 @@ import Checkout from "./pages/Checkout";
 import Transactions from "./pages/Transactions";
 import Notifications from "./pages/Notifications";
 import NotificationBell from "./components/NotificationBell";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <NotificationBell />
           <Link className="btn btn-outline-light ms-2" to="/login">Login</Link>
           <Link className="btn btn-primary ms-2" to="/signup">Sign Up</Link>
+          <Link className="btn btn-warning ms-2" to="/admin">Admin</Link>
         </div>
       </nav>
       <div className="container mt-4">
@@ -34,6 +36,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </div>
     </Router>
